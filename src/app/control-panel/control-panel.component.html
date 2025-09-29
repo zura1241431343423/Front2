@@ -1,0 +1,197 @@
+<div class="control-panel-container">
+  <div class="sidebar">
+    <button (click)="selectView('products')" [class.active]="selectedView === 'products'">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <path fill="currentColor"
+          d="M7.308 21.116q-.633 0-1.067-.434t-.433-1.066t.433-1.067q.434-.433 1.067-.433t1.066.433t.434 1.067t-.434 1.066t-1.066.434m9.384 0q-.632 0-1.066-.434t-.434-1.066t.434-1.067q.434-.433 1.066-.433t1.067.433q.433.434.433 1.067q0 .632-.433 1.066q-.434.434-1.067.434M3.808 3.5H2.5q-.213 0-.356-.144T2 2.999t.144-.356T2.5 2.5h1.436q.239 0 .435.12t.294.34l3.88 8.156h6.634q.173 0 .308-.087q.134-.087.23-.24l3.356-6.039q.068-.115.18-.183T19.5 4.5q.285 0 .429.247q.143.247.003.497l-3.364 6.09q-.217.366-.565.574t-.762.208H8.1l-1.215 2.23q-.154.231-.01.5t.433.27h10.384q.213 0 .357.143q.143.144.143.357t-.143.356t-.357.144H7.308q-.875 0-1.309-.735t-.018-1.485l1.504-2.68zM12 9.5q-.261 0-.438-.177t-.177-.438t.177-.439T12 8.27t.439.177t.176.439t-.177.438T12 9.5m0-3q-.214 0-.357-.144T11.5 6V2q0-.213.144-.356t.357-.144t.356.144T12.5 2v4q0 .213-.144.356t-.357.144" />
+      </svg>
+      <span>Products</span>
+    </button>
+    <button (click)="selectView('orders')" [class.active]="selectedView === 'orders'">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <path fill="currentColor"
+          d="m1.673 12.998l.25-1h4.48l-.25 1zM7.5 19q-1.038 0-1.77-.73T5 16.5H2.77l.5-2.002h4.059l.861-3.496h2.139l1-4H5.327l.304-1.1q.092-.393.39-.647Q6.316 5 6.734 5h11.073l-.81 3.5h2.079l2.712 3.616l-.866 4.384h-1.154q0 1.039-.73 1.77t-1.77.73t-1.769-.73t-.73-1.77H10q0 1.039-.73 1.77T7.5 19M3.673 9.502l.25-1h5.48l-.25 1zM7.5 18q.617 0 1.059-.441Q9 17.117 9 16.5t-.441-1.059T7.5 15t-1.059.441Q6 15.883 6 16.5t.441 1.059Q6.883 18 7.5 18m9.77 0q.617 0 1.058-.441q.441-.442.441-1.059t-.441-1.059T17.269 15t-1.058.441q-.442.442-.442 1.059t.441 1.059q.442.441 1.06.441m-1.384-4.75h4.653l.176-.89l-2.138-2.86h-1.818z" />
+      </svg>
+      <span>Orders</span>
+    </button>
+    <button (click)="selectView('customers')" [class.active]="selectedView === 'customers'">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <path fill="currentColor"
+          d="M14.366 6.73v-1h7v1zm0 3.77v-1h7v1zm0 3.77v-1h7v1zm-6.496-.654q-.928 0-1.581-.65q-.654-.65-.654-1.577t.649-1.581t1.577-.654t1.581.65t.654 1.576t-.65 1.582q-.648.654-1.576.654m-5.235 5.23v-1.13q0-.327.163-.622t.44-.475q1.049-.598 2.2-.916q1.15-.318 2.428-.318q1.276 0 2.427.318t2.2.916q.276.179.44.475t.163.622v1.13z" />
+      </svg>
+      <span>Customers</span>
+    </button>
+    <button (click)="selectView('charts')" [class.active]="selectedView === 'charts'">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <path fill="currentColor"
+          d="M3 20v-1h18v1zm1-2.77V12h2v5.23zm4.654 0V7h2v10.23zm4.673 0V10h2v7.23zm4.673 0V4h2v13.23z" />
+      </svg>
+      <span>Charts</span>
+    </button>
+  </div>
+
+  <div class="content-panel">
+  <div *ngIf="selectedView === 'products'">
+    <div class="products-section-header">
+      <button class="products-dropdown-toggle" (click)="toggleProductsDropdown()">
+        Product List
+        <svg class="dropdown-arrow" [class.rotated]="isProductsDropdownVisible" xmlns="http://www.w3.org/2000/svg"
+          width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M7 10l5 5 5-5z"></path>
+        </svg>
+      </button>
+      <button class="new-product-btn" (click)="toggleNewProductForm()">Add New Product</button>
+      <button class="save-all-btn" 
+              *ngIf="hasUnsavedChanges" 
+              (click)="saveAllChanges()">
+        Save All Changes
+      </button>
+      <button class="reset-btn" 
+              *ngIf="hasUnsavedChanges" 
+              (click)="resetChanges()">
+        Reset Changes
+      </button>
+
+      <div class="products-dropdown-menu" *ngIf="isProductsDropdownVisible">
+       <button (click)="selectProductSubCategory('IT Equipment')">IT Equipment</button>
+<button (click)="selectProductSubCategory('Appliances')">Appliances</button>
+<button (click)="selectProductSubCategory('Mobile Devices')">Mobile Devices</button>
+      </div>
+    </div>
+
+    <div class="product-subcategory-content">
+      <div *ngIf="!selectedProductCategory && !isNewProductFormVisible" class="no-category-selected">
+        <p>Please select a product category from the dropdown above or add a new product.</p>
+      </div>
+      
+      <div *ngIf="selectedProductCategory && !isNewProductFormVisible">
+        <h3>{{ selectedProductCategory | titlecase }}</h3>
+        <div *ngIf="hasUnsavedChanges" class="changes-indicator">
+          * You have unsaved changes
+        </div>
+
+        
+        <div *ngIf="filteredProducts.length > 0; else noProducts">
+          <div class="product-card" *ngFor="let product of filteredProducts">
+            <img [src]="product.images[0] || 'https://via.placeholder.com/200x200?text=No+Image'" 
+                 alt="{{ product.name }}" 
+                 class="product-image" />
+            <div class="product-info">
+              <h4>{{ product.name }}</h4>
+              <p>Brand: {{ product.brand }}</p>
+              <p>
+                Quantity:
+                <input type="number" 
+                       [value]="product.quantity" 
+                       (change)="onQuantityChange(product, $event)" 
+                       min="0" />
+              </p>
+              <p>
+                <span *ngIf="hasActiveDiscount(product)">
+                  Price: <span class="original-price">${{ product.price.toFixed(2) }}</span>
+                  <span class="discounted-price">${{ getFinalPrice(product).toFixed(2) }}</span>
+                  <small class="discount-badge">({{ getDiscountDisplay(product) }})</small>
+                </span>
+                <span *ngIf="!hasActiveDiscount(product)">
+                  Price: ${{ product.price.toFixed(2) }}
+                </span>
+              </p>
+              
+          
+              <div class="discount-section">
+                <label>Discount %:
+                  <input type="number" 
+                         class="discount-input"
+                         #discountInput
+                         [value]="getTempDiscountValue(product) || product.discountPercentage || ''"
+                         (change)="onDiscountChange(product, $event)"
+                         min="1" 
+                         max="100" 
+                         placeholder="1-100" />
+                </label>
+                <button class="discount-btn apply-discount-btn" 
+                        (click)="applyDiscount(product, discountInput)"
+                        [disabled]="!discountInput.value">
+                  Apply
+                </button>
+                <button class="discount-btn remove-discount-btn" 
+                        *ngIf="hasActiveDiscount(product)"
+                        (click)="removeDiscount(product)">
+                  Remove
+                </button>
+                <span *ngIf="hasUnsavedDiscount(product)" class="unsaved-indicator">
+                  *
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <ng-template #noProducts>
+          <div class="no-products-message">
+            No products found in this category.
+          </div>
+        </ng-template>
+      </div>
+    </div>
+
+    
+    <div *ngIf="isNewProductFormVisible" class="new-product-form">
+      <h3>Add New Product</h3>
+      <form>
+        <label>Name: <input type="text" [(ngModel)]="newProduct.name" name="name" required></label><br>
+        <label>Brand: <input type="text" [(ngModel)]="newProduct.brand" name="brand" required></label><br>
+        <label>Price $: <input type="number" [(ngModel)]="newProduct.price" name="price" step="0.01" min="0" required></label><br>
+        
+        <label>Category: 
+          <select [(ngModel)]="newProduct.category" name="category" required>
+            <option value="">Select Category</option>
+            <option value="IT Equipment">IT Equipment</option>
+            <option value="Appliances">Appliances</option>
+            <option value="Mobile Devices">Mobile Devices</option>
+          </select>
+        </label><br>
+        
+        <label>SubCategory: <input type="text" [(ngModel)]="newProduct.subCategory" name="subCategory"></label><br>
+        <label>Quantity: <input type="number" [(ngModel)]="newProduct.quantity" name="quantity" min="0" required></label><br>
+        <label>Warranty:
+          <select [(ngModel)]="newProduct.warranty" name="warranty">
+            <option [value]="1">Yes</option>
+            <option [value]="0">No</option>
+          </select>
+        </label><br>
+        <label>Image URL(s): <input type="text" [(ngModel)]="imageUrlsInput" name="imageUrlsInput" placeholder="Comma-separated URLs (optional)"></label><br>
+        <button type="button" (click)="submitNewProduct()">Submit</button>
+        <button type="button" (click)="resetProductForm()">Cancel</button>
+      </form>
+    </div>
+  </div>
+
+  <div *ngIf="selectedView === 'orders'">
+  <h2>Orders Section</h2>
+  <p>View and manage customer orders.</p>
+
+  <app-order-menu></app-order-menu> 
+</div>
+
+
+<div *ngIf="selectedView === 'customers'">
+  <h2>Customers Section</h2>
+  <p>Manage your customer data.</p>
+
+  <app-user-menu></app-user-menu> 
+</div>
+
+
+
+
+
+
+    
+
+    <div *ngIf="selectedView === 'charts'">
+      <h2>Charts Section</h2>
+      <app-chart-container></app-chart-container> 
+    </div>
+  </div>
+</div>

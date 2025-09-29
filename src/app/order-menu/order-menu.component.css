@@ -1,0 +1,88 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+
+.order-card {
+margin-bottom: 15px;
+  max-width: 400px;
+  width: 100%;
+  background-color: #101820FF;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 10px 15px -3px #F2AA4CFF, 0 4px 6px -2px #F2AA4CFF;
+}
+
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.customer-name {
+  font-size: 1.125rem; 
+  font-weight: 700;
+  color: #F2AA4CFF;
+  margin: 0;
+}
+
+.order-id {
+  font-size: 0.75rem; 
+  color: #F2AA4CFF;
+  margin-top: 4px;
+}
+
+.price-section {
+  text-align: right;
+}
+
+.total-price {
+  font-size: 1.25rem; 
+  font-weight: 700;
+  color: #F2AA4CFF;
+  margin: 0;
+}
+
+.price-label {
+  font-size: 0.75rem; 
+  color: #F2AA4CFF;
+}
+
+
+.card-divider {
+  border: 0;
+  border-top: 1px solid #F2AA4CFF; 
+  margin: 12px 0;
+}
+
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; 
+  font-size: 0.875rem; 
+}
+
+
+.info-row {
+  display: flex;
+  align-items: center;
+  color: #F2AA4CFF;
+}
+
+.info-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  color: #22c55e; 
+  flex-shrink: 0; 
+}
+
+.info-icon.success-icon {
+  color: #22c55e; 
+}
+
+.info-label {
+  font-weight: 500;
+}

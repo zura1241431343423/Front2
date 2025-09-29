@@ -1,0 +1,55 @@
+<div *ngIf="loading">Loading orders...</div>
+<div *ngIf="!loading && errorMessage">{{ errorMessage }}</div>
+<div *ngIf="!loading && orders.length === 0">No orders found.</div>
+
+<div *ngIf="!loading && orders.length > 0">
+  <div *ngFor="let order of orders" class="order-wrapper">
+    <div class="order-card">
+      <div class="card-header">
+        <div class="customer-info">
+          <h3 class="customer-name">{{ order.email }}</h3>
+          <p class="order-id">Order #{{ order.id }}</p>
+        </div>
+        <div class="price-section">
+          <p class="total-price">{{ order.totalPrice | currency }}</p>
+          <p class="price-label">Total Price</p>
+        </div>
+      </div>
+
+      <hr class="card-divider">
+
+      <div class="card-body">
+        <div class="info-row">
+          <svg class="info-icon" xmlns="http://www.w3.org/2000/svg" fill="none"
+               viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          <span>{{ order.location }}</span>
+        </div>
+
+        <div class="info-row">
+          <svg class="info-icon" xmlns="http://www.w3.org/2000/svg" fill="none"
+               viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+          <span><span class="info-label">Ordered:</span> {{ order.orderDate | date:'mediumDate' }}</span>
+        </div>
+
+        <div class="info-row">
+          <svg class="info-icon success-icon" xmlns="http://www.w3.org/2000/svg" fill="none"
+               viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span><span class="info-label">Delivered:</span>
+            {{ order.deliveryDate ? (order.deliveryDate | date:'mediumDate') : 'Pending' }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

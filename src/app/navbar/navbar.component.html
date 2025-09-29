@@ -1,0 +1,78 @@
+<nav class="navbar">      
+  <ul class="navbar-nav-left">
+  <li> 
+    <a class="home" routerLink="/home" routerLinkActive="active-link">Home</a>
+  </li>
+
+  
+ <li class="dropdown" *ngFor="let category of categories; trackBy: trackByCategory">
+  <a [routerLink]="getCategoryRoute(category)"
+     routerLinkActive="active-link"
+     class="dropdown-toggle">
+    {{ category }}
+    <svg class="dropdown-arrow" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M7 10l5 5 5-5z"/>
+    </svg>
+  </a>
+
+  <ul class="dropdown-menu">
+    <li *ngFor="let subcategory of getSubcategoriesForCategory(category); trackBy: trackBySubcategoryId">
+      <a [routerLink]="getCategoryRoute(category)" 
+         [queryParams]="{ subcategory: subcategory.name }">
+        {{ subcategory.name }}
+      </a>
+    </li>
+
+    <li *ngIf="getSubcategoriesForCategory(category).length === 0" class="no-subcategories">
+      No subcategories available
+    </li>
+  </ul>
+</li>
+
+</ul>
+
+
+  <div class="navbar-search">     
+    <app-search-bar          
+         (productSelected)="onProductSelected($event)"         
+         (searchPerformed)="onSearchPerformed($event)">     
+    </app-search-bar> 
+  </div>   
+
+
+  <div class="navbar-currency">   
+    <app-currency-changer    
+         (currencyChanged)="onCurrencyChanged($event)"> 
+    </app-currency-changer> 
+  </div>    
+
+  
+  <div *ngIf="userRole === 'Admin' || userRole === 'Manager'" class="navbar-control-panel">          
+    <a routerLink="/admin-panel" class="control-panel-btn">Control Panel</a>      
+  </div>        
+
+  <div class="navbar-nav-right">          
+    <ng-container *ngIf="!isLoggedIn; else profileBlock">              
+      <a routerLink="/register" routerLinkActive="active-link">                  
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" style="vertical-align: middle; margin-right: 6px;">                      
+          <path fill="currentColor" d="M11.98 20v-1h6.405q.23 0 .423-.192t.192-.424V5.616q0-.231-.192-.424T18.384 5h-6.403V4h6.404q.69 0 1.152.463T20 5.616v12.769q0 .69-.463 1.153T18.385 20zm-.71-4.461l-.703-.72l2.32-2.319H4v-1h8.887l-2.32-2.32l.702-.718L14.808 12z"/>                  
+        </svg>                  
+        Register              
+      </a>          
+    </ng-container>            
+
+    <ng-template #profileBlock>          
+      <a class="nav-icon-button" id="cart-icon" routerLink="/cart" routerLinkActive="active-link">            
+        <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">                
+          <path fill="currentColor" d="M7 22q-.825 0-1.412-.587T5 20t.588-1.412T7 18t1.413.588T9 20t-.587 1.413T7 22m10 0q-.825 0-1.412-.587T15 20t.588-1.412T17 18t1.413.588T19 20t-.587 1.413T17 22M6.15 6l2.4 5h7l2.75-5zM5.2 4h16.5l-4.975 9H8.1L7 15h12v2H3.625L6.6 11.6L3 4H1V2h3.25zm3.35 7h7z"/>            
+        </svg>        
+      </a>            
+
+      <a routerLink="/profile" routerLinkActive="active-link" class="nav-icon-button">              
+        <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24">                  
+          <path fill="currentColor" d="M12 16q-1.725 0-3.225.525T6 18v2h12v-2q-1.275-.95-2.775-1.475T12 16m-6 6q-.825 0-1.412-.587T4 20V4q0-.825.588-1.412T6 2h12q.825 0 1.413.588T20 4v16q0 .825-.587 1.413T18 22zm6-8q1.45 0 2.475-1.025T15.5 10.5t-1.025-2.475T12 7T9.525 8.025T8.5 10.5t1.025 2.475T12 14"/>              
+        </svg>          
+      </a>      
+    </ng-template>      
+  </div>  
+</nav>

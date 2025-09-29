@@ -1,0 +1,43 @@
+.favorite-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  max-width: 300px;
+  margin: 10px;
+  box-shadow: 0 0 6px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.favorite-card img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  margin-right: 10px;
+  border-radius: 4px;
+}
+
+.favorite-card .details {
+  flex: 1;
+}
+
+.favorite-card h4 {
+  margin: 0 0 4px;
+  font-size: 16px;
+}
+
+.favorite-card p {
+  margin: 0 0 8px;
+  color: #555;
+}
+
+.favorite-card button {
+  padding: 4px 10px;
+  border: none;
+  background: #d9534f;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}

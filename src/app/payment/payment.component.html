@@ -1,0 +1,66 @@
+<div class="payment-container">
+  <div class="payment-header">
+    <h2>Payment Information</h2>
+  </div>
+
+  <form class="payment-form" (submit)="onSubmit($event)">
+    <div class="form-group card-number-group">
+      <label for="cardNumber" class="form-label">Card Number</label>
+      <div class="card-input-wrapper">
+        <input
+          type="text"
+          id="cardNumber"
+          class="form-input"
+          placeholder="xxxx xxxx xxxx xxxx"
+          maxlength="19"
+          autocomplete="cc-number"
+          (input)="onCardNumberChange($event)"
+        />
+       
+        <div class="card-icon" *ngIf="detectedCardType && cardIcons[detectedCardType]">
+          <img 
+            [src]="cardIcons[detectedCardType]" 
+            [alt]="detectedCardType + ' card'"
+            (error)="onImageError($event)"
+            style="width: 32px; height: 20px; object-fit: contain;"
+          />
+        </div>
+      </div>
+    
+      
+      
+    </div>
+
+    <div class="form-row">
+      <div class="form-group form-group-half">
+        <label for="expiryDate" class="form-label">Expiry Date</label>
+        <input
+          type="text"
+          id="expiryDate"
+          class="form-input"
+          placeholder="MM/YY"
+          maxlength="5"
+          autocomplete="cc-exp"
+          (input)="onExpiryDateChange($event)"
+        />
+        <div class="input-error" id="expiryError"></div>
+      </div>
+
+      <div class="form-group form-group-half">
+        <label for="cvv" class="form-label">{{ getCvvLabel() }}</label>
+        <input
+          type="text"
+          id="cvv"
+          class="form-input"
+          placeholder="xxx"
+          maxlength="4"
+          autocomplete="cc-csc"
+          (input)="onCvvChange($event)"
+        />
+        <div class="input-error" id="cvvError"></div>
+      </div>
+    </div>
+
+    
+  </form>
+</div>

@@ -1,0 +1,65 @@
+<div class="search-result-container">
+
+  
+
+
+  <div class="results-header" *ngIf="hasSearched">
+    <h2 class="results-title">
+      <span *ngIf="!isLoading">
+        Search Results for "{{ searchQuery }}"
+        <span class="results-count" *ngIf="searchResults.length > 0">
+          ({{ searchResults.length }} {{ searchResults.length === 1 ? 'result' : 'results' }})
+        </span>
+      </span>
+      <span *ngIf="isLoading">Searching for "{{ searchQuery }}"...</span>
+    </h2>
+  </div>
+
+
+  <div class="loading-container" *ngIf="isLoading">
+    <div class="loading-content">
+      <div class="spinner"></div>
+      <p>Searching for products...</p>
+    </div>
+  </div>
+
+
+  <div class="results-grid" *ngIf="!isLoading && searchResults.length > 0">
+    <app-card 
+      *ngFor="let product of searchResults" 
+      [product]="product"
+      (ratingChanged)="onProductRatingChanged($event)">
+    </app-card>
+  </div>
+
+  
+  <div class="no-results" *ngIf="!isLoading && hasSearched && searchResults.length === 0">
+    <div class="no-results-content">
+      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="no-results-icon">
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="m21 21-4.35-4.35"></path>
+      </svg>
+      <h3>No products found</h3>
+      <p>Sorry, we couldn't find any products matching "{{ searchQuery }}"</p>
+      <div class="search-suggestions">
+        <h4>Try:</h4>
+        <ul>
+          <li>Checking your spelling</li>
+          <li>Using different keywords</li>
+          <li>Using more general terms</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="empty-state" *ngIf="!hasSearched">
+    <div class="empty-state-content">
+      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="empty-state-icon">
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="m21 21-4.35-4.35"></path>
+      </svg>
+      <h3>Search for products</h3>
+      <p>Enter a search term to find products</p>
+    </div>
+  </div>
+</div>

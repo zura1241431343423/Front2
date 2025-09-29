@@ -1,0 +1,164 @@
+
+  
+  .profile-container {
+    display: flex;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 60vh; 
+    border: 1px solid #e0e0e0; 
+    border-radius: 8px; 
+    overflow: hidden; 
+    margin: 20px; 
+    background-color: #ffffff; 
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
+   
+  }
+
+  
+  .sidebar {
+    width: 200px; 
+    background-color: #f8f9fa; 
+    padding: 20px;
+    border-right: 1px solid #e0e0e0; 
+    display: flex;
+    flex-direction: column; 
+    gap: 10px; 
+  }
+
+  
+  .nav-button {
+    background-color: #F2AA4CFF; 
+    color: #101820FF; 
+    border: none; 
+    padding: 12px 15px; 
+    text-align: left; 
+    cursor: pointer; 
+    border-radius: 6px; 
+    font-size: 1rem; 
+    transition: background-color 0.3s ease, transform 0.1s ease; 
+  }
+
+  .nav-button:hover {
+    background-color: rgb(194, 119, 22); 
+  }
+
+  
+  .nav-button.active {
+    background-color: rgb(194, 119, 22); 
+    font-weight: bold; 
+  }
+
+  
+  .nav-button:active {
+      transform: scale(0.98); 
+  }
+
+ 
+  .content-area {
+    flex-grow: 1; 
+    padding: 30px; 
+    background-color: #ffffff; 
+  }
+
+  
+  .panel {
+    animation: fadeIn 0.5s ease-in-out; 
+  }
+
+  .panel h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #101820FF;
+    border-bottom: 1px solid ;
+    padding-bottom: 10px;
+  }
+
+
+  .form-group {
+    margin-bottom: 15px; 
+  }
+
+  .form-group label {
+    display: block; 
+    margin-bottom: 5px; 
+    font-weight: 500; 
+    color: #101820FF;
+  }
+
+.form-group input {
+   width: 40%; 
+    padding: 10px; 
+    border: 1px solid #F2AA4CFF; 
+    border-radius: 2px; 
+    box-sizing: border-box; 
+    font-size: 0.95rem;
+     color: #101820FF;
+  }
+  
+  .form-control {
+    width: 40%; 
+    padding: 10px; 
+    border: 1px solid #F2AA4CFF; 
+    border-radius: 4px; 
+    box-sizing: border-box; 
+    font-size: 0.95rem;
+    color: #101820FF;
+  }
+
+  .form-control:focus {
+      border-color: rgb(194, 119, 22); 
+      outline: 0;
+      box-shadow: 0 0 0 0.2rem rgb(194, 119, 22); 
+  }
+
+  
+  .save-button {
+    background-color: #F2AA4CFF; 
+    color: #101820FF; 
+    border: none; 
+    padding: 10px 20px; 
+    border-radius: 6px; 
+    cursor: pointer; 
+    font-size: 1rem;
+    transition: background-color 0.3s ease; 
+    margin-top: 10px; 
+  }
+
+  .save-button:hover {
+    background-color: rgb(194, 119, 22); 
+  }
+
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+
+  @media (max-width: 768px) {
+    .profile-container {
+      flex-direction: column; 
+    }
+
+    .sidebar {
+      width: 100%; 
+      border-right: none; 
+      border-bottom: 1px solid #e0e0e0; 
+      flex-direction: row; 
+      justify-content: space-around; 
+      padding: 10px; 
+    }
+
+    .nav-button {
+      text-align: center;
+      flex-grow: 1; 
+      margin: 0 5px; 
+    }
+
+    .content-area {
+      padding: 20px;
+    }
+  }

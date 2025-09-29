@@ -1,0 +1,262 @@
+.product-card {
+   cursor: pointer;
+  position: relative;
+  width: 280px; 
+  height: 380px; 
+  background: #101820FF;
+  border-radius: 1rem;
+  padding: 0.5rem;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  overflow: visible; 
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  height: 180px; 
+  border-radius: 0.7rem;
+  border-top-right-radius: 4rem;
+  margin-bottom: 1.5rem; 
+  overflow: hidden;
+}
+
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: inherit;
+  transition: transform 0.3s ease;
+}
+
+.img-fallback {
+  width: 100%;
+  height: 100%;
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.price-container {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: #101820FF;
+  
+  border-radius: 8px;
+  padding: 8px 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  min-width: 80px;
+  text-align: center;
+}
+
+
+.regular-price {
+  font-weight: 600;
+  font-size: 16px;
+  color: #F2AA4CFF;
+}
+
+
+.discount-badge {
+  background: linear-gradient(135deg, #101820FF, #101820FF);
+  color: #F2AA4CFF;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 12px;
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  transform: rotate(15deg);
+  box-shadow: 0 2px 4px #101820FF;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: rotate(15deg) scale(1); }
+  50% { transform: rotate(15deg) scale(1.05); }
+  100% { transform: rotate(15deg) scale(1); }
+}
+
+
+.original-price {
+  font-size: 14px;
+  color: #F2AA4CFF;
+  text-decoration: line-through;
+  margin-bottom: 4px;
+  font-weight: 400;
+}
+
+
+.discounted-price {
+  font-size: 16px;
+  font-weight: 700;
+  color: #22c55e;
+  margin-bottom: 2px;
+}
+
+.favorite {
+  position: absolute;
+  width: 24px; 
+  height: 24px;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  z-index: 3; 
+}
+
+.favorite input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.favorite svg{
+  margin-left:  3px;
+}
+
+.favorite input:checked ~ svg {
+  animation: bouncing 0.5s;
+  fill: rgb(255, 95, 95);
+  filter: drop-shadow(0px 3px 1px rgba(53, 53, 53, 0.14));
+}
+
+.favorite svg {
+  fill: #a8a8a8;
+}
+
+.product-info {
+  padding: 0 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.product-name {
+  font-weight: 700;
+  color: #F2AA4CFF;
+  font-size: 18px;
+  margin-bottom: 0.5rem;
+}
+
+.rating {
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 20px;
+}
+
+.rating svg {
+  height: 20px;
+  fill: white;
+  transition: fill 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.rating svg:hover,
+.rating svg.filled {
+  fill: gold;
+}
+
+.rating span {
+  color: #F2AA4CFF;
+  
+}
+
+.product-actions {
+  padding: 0 0.8rem 0.8rem;
+}
+
+.add-to-basket-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #F2AA4CFF;
+  color: #101820FF;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  font-weight: 800;
+  margin-top: 30px;
+}
+
+.add-to-basket-btn:hover {
+  background-color: rgb(233, 147, 35);
+  transform: translateY(-1px);
+}
+
+.add-to-basket-btn:active {
+  background-color: rgb(233, 147, 35);
+  transform: translateY(0);
+}
+
+.product-card:hover {
+  transform: translateY(-7px) scale(1.02);
+  box-shadow: rgb(230, 151, 47) 0px 10px 36px 0px;
+}
+
+.product-card:hover .product-image {
+  transform: scale(1.05);
+}
+
+@keyframes bouncing {
+  from, to {
+    transform: scale(1, 1);
+  }
+  25% {
+    transform: scale(1.5, 2.1);
+  }
+  50% {
+    transform: scale(2.1, 1.5);
+  }
+  75% {
+    transform: scale(1.5, 2.05);
+  }
+}
+
+@media (max-width: 1000px) {
+  .product-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+  }
+     
+  .image-container {
+    width: 100%;
+    height: 180px;
+    position: relative;
+  }
+  
+  .product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  
+  
+  .favorite {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+  }
+  
+  .product-info {
+    flex: 1;
+    padding: 12px;
+  }
+  
+  .product-actions {
+    padding: 0 12px 12px 12px;
+  }
+}

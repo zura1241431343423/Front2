@@ -1,0 +1,191 @@
+<div class="popularity-charts-container">
+
+  <div class="charts-header">
+    <h2>Product Popularity Rankings</h2>
+    <button class="refresh-btn" (click)="refreshData()" [disabled]="isLoading">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38"></path>
+      </svg>
+      Refresh Data
+    </button>
+  </div>
+
+
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="loading-spinner"></div>
+    <p>Loading popularity data...</p>
+  </div>
+
+
+  <div *ngIf="error && !isLoading" class="error-container">
+    <div class="error-message">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"></circle>
+        <path d="M15 9l-6 6"></path>
+        <path d="M9 9l6 6"></path>
+      </svg>
+      <span>{{ error }}</span>
+    </div>
+    <button class="retry-btn" (click)="refreshData()">Try Again</button>
+  </div>
+
+
+  <div *ngIf="!isLoading && !error" class="charts-content">
+
+    <div class="charts-row">
+
+      <div class="chart-section">
+        <div class="section-header">
+          <h3>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+              <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+            Most Sold Products
+          </h3>
+          <span class="count-badge">Top 10</span>
+        </div>
+        <div class="products-grid">
+          <div *ngFor="let product of mostSoldProducts; let i = index" class="product-card best-seller">
+            <div class="rank-badge">{{ i + 1 }}</div>
+            <div class="product-image">
+              <img [src]="product.image" [alt]="product.name" (error)="onImageError($event)">
+            </div>
+            <div class="product-details">
+              <h4 class="product-name">{{ product.name }}</h4>
+              <p class="product-brand">{{ product.brand }}</p>
+              <div class="product-price">
+                <span class="current-price">{{ formatPrice(product.discountedPrice || product.price) }}</span>
+                <span *ngIf="product.discountedPrice" class="original-price">{{ formatPrice(product.price) }}</span>
+              </div>
+              <div class="product-rating">
+                <div class="stars">
+                  <span *ngFor="let star of getStarArray(product.rating)" [class.filled]="star">★</span>
+                </div>
+                <span class="rating-text">({{ product.ratingCount }})</span>
+              </div>
+              <div class="sales-info">
+                <span class="sold-count">{{ product.totalQuantity }} sold</span>
+                <span class="order-count">{{ product.soldCount }} orders</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="chart-section">
+        <div class="section-header">
+          <h3>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+            Highest Rated Products
+          </h3>
+          <span class="count-badge">Top 10</span>
+        </div>
+        <div class="products-grid">
+          <div *ngFor="let product of highestRatedProducts; let i = index" class="product-card top-rated">
+            <div class="rank-badge">{{ i + 1 }}</div>
+            <div class="product-image">
+              <img [src]="product.image" [alt]="product.name" (error)="onImageError($event)">
+            </div>
+            <div class="product-details">
+              <h4 class="product-name">{{ product.name }}</h4>
+              <p class="product-brand">{{ product.brand }}</p>
+              <div class="product-price">
+                <span class="current-price">{{ formatPrice(product.discountedPrice || product.price) }}</span>
+                <span *ngIf="product.discountedPrice" class="original-price">{{ formatPrice(product.price) }}</span>
+              </div>
+              <div class="product-rating">
+                <div class="stars">
+                  <span *ngFor="let star of getStarArray(product.rating)" [class.filled]="star">★</span>
+                </div>
+                <span class="rating-text">{{ product.rating.toFixed(1) }} ({{ product.ratingCount }})</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="charts-row">
+
+      <div class="chart-section">
+        <div class="section-header">
+          <h3>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 9v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9"></path>
+              <path d="M9 22V12h6v10M2 10.6L12 2l10 8.6"></path>
+            </svg>
+            Least Sold Products
+          </h3>
+          <span class="count-badge">Bottom 10</span>
+        </div>
+        <div class="products-grid">
+          <div *ngFor="let product of leastSoldProducts; let i = index" class="product-card least-sold">
+            <div class="rank-badge">{{ i + 1 }}</div>
+            <div class="product-image">
+              <img [src]="product.image" [alt]="product.name" (error)="onImageError($event)">
+            </div>
+            <div class="product-details">
+              <h4 class="product-name">{{ product.name }}</h4>
+              <p class="product-brand">{{ product.brand }}</p>
+              <div class="product-price">
+                <span class="current-price">{{ formatPrice(product.discountedPrice || product.price) }}</span>
+                <span *ngIf="product.discountedPrice" class="original-price">{{ formatPrice(product.price) }}</span>
+              </div>
+              <div class="product-rating">
+                <div class="stars">
+                  <span *ngFor="let star of getStarArray(product.rating)" [class.filled]="star">★</span>
+                </div>
+                <span class="rating-text">({{ product.ratingCount }})</span>
+              </div>
+              <div class="sales-info">
+                <span class="sold-count">{{ product.totalQuantity || 0 }} sold</span>
+                <span class="order-count">{{ product.soldCount || 0 }} orders</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    
+      <div class="chart-section">
+        <div class="section-header">
+          <h3>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+            Lowest Rated Products
+          </h3>
+          <span class="count-badge">Bottom 10</span>
+        </div>
+        <div class="products-grid">
+          <div *ngFor="let product of lowestRatedProducts; let i = index" class="product-card lowest-rated">
+            <div class="rank-badge">{{ i + 1 }}</div>
+            <div class="product-image">
+              <img [src]="product.image" [alt]="product.name" (error)="onImageError($event)">
+            </div>
+            <div class="product-details">
+              <h4 class="product-name">{{ product.name }}</h4>
+              <p class="product-brand">{{ product.brand }}</p>
+              <div class="product-price">
+                <span class="current-price">{{ formatPrice(product.discountedPrice || product.price) }}</span>
+                <span *ngIf="product.discountedPrice" class="original-price">{{ formatPrice(product.price) }}</span>
+              </div>
+              <div class="product-rating">
+                <div class="stars">
+                  <span *ngFor="let star of getStarArray(product.rating)" [class.filled]="star">★</span>
+                </div>
+                <span class="rating-text">{{ product.rating.toFixed(1) }} ({{ product.ratingCount }})</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

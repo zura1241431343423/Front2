@@ -1,0 +1,63 @@
+<div class="dashboard-container">
+  
+  <div class="chart-container" *ngIf="!selectedChart">
+    <button class="chart-button" (click)="showChart('income')">
+      <span class="button-content">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign">
+          <line x1="12" y1="1" x2="12" y2="23"></line>
+          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+        </svg>
+        <span class="button-title">Income</span>
+      </span>
+    </button>
+    
+    <button class="chart-button" (click)="showChart('popularity')">
+      <span class="button-content">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+        </svg>
+        <span class="button-title">Popularity</span>
+      </span>
+    </button>
+    
+    <button class="chart-button" (click)="showChart('trends')">
+      <span class="button-content">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trending-up">
+          <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+          <polyline points="17 6 23 6 23 12"></polyline>
+        </svg>
+        <span class="button-title">Trends</span>
+      </span>
+    </button>
+    
+   
+  </div>
+
+ 
+  <div class="chart-display" *ngIf="selectedChart">
+   
+    <button class="back-button" (click)="closeChart()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 12H5"></path>
+        <path d="M12 19l-7-7 7-7"></path>
+      </svg>
+      Back to Charts
+    </button>
+
+    
+    <app-income-chart *ngIf="selectedChart === 'income'"></app-income-chart>
+    
+
+    <div *ngIf="selectedChart === 'popularity'">
+    <app-popularity-charts></app-popularity-charts>
+    
+  </div>
+    
+    <div *ngIf="selectedChart === 'trends'" class="placeholder-chart">
+      <app-trends-chart></app-trends-chart>
+    
+    </div>
+    
+   
+  </div>
+</div>

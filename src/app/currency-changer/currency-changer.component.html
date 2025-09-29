@@ -1,0 +1,34 @@
+<div class="currency-changer">
+  <div class="dropdown" [class.open]="isDropdownOpen">
+    <button 
+      class="dropdown-toggle"
+      (click)="toggleDropdown()"
+      type="button"
+      aria-label="Currency selector"
+      aria-expanded="isDropdownOpen">
+      <span class="currency-info">
+        <span class="currency-symbol">{{ selectedCurrency.symbol }}</span>
+        <span class="currency-code">{{ selectedCurrency.code }}</span>
+      </span>
+      <svg class="dropdown-arrow" [class.rotated]="isDropdownOpen" width="12" height="8" viewBox="0 0 12 8">
+        <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    
+    <div class="dropdown-menu" *ngIf="isDropdownOpen" role="menu">
+      <button 
+        *ngFor="let currency of currencies" 
+        class="dropdown-item"
+        [class.active]="currency.code === selectedCurrency.code"
+        (click)="selectCurrency(currency)"
+        type="button"
+        role="menuitem">
+        <span class="currency-symbol">{{ currency.symbol }}</span>
+        <span class="currency-details">
+          <span class="currency-code">{{ currency.code }}</span>
+          
+        </span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,206 @@
+.review-component-container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 1200px;
+  margin: 25px auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.review-component-container h2,
+.review-component-container h3 {
+  color: #101820FF;
+  margin-top: 0;
+}
+
+.review-component-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #F2AA4CFF;
+}
+
+.card {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px #101820FF;
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+
+.review-input-section h3 {
+  margin-bottom: 20px;
+  font-size: 1.4em;
+  color: #101820FF;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #101820FF;
+}
+.delete-btn {
+  background-color: #F2AA4CFF;
+  color: #101820FF;
+}
+
+
+.form-control {
+  width: calc(100% - 22px); 
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.form-control:focus {
+  border-color: #F2AA4CFF;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem #101820FF;
+}
+
+textarea.form-control {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.submit-btn {
+  background-color: #F2AA4CFF;
+  color: #101820FF;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.submit-btn:hover {
+  background-color: rgb(233, 147, 35);
+}
+
+.submit-btn:active {
+  transform: translateY(1px);
+}
+
+.submit-btn:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.validation-error small {
+  color: #dc3545;
+  display: block;
+  margin-top: 4px;
+}
+
+.login-prompt {
+  text-align: center;
+  padding: 20px;
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeeba;
+}
+
+.login-prompt a {
+  color: #101820FF;
+  font-weight: 600;
+  text-decoration: none;
+}
+.login-prompt a:hover {
+  text-decoration: underline;
+}
+
+.separator {
+  border: 0;
+  height: 1px;
+  background: #dee2e6;
+  margin: 30px 0;
+}
+
+.comment-section h3 {
+  margin-bottom: 20px;
+  color: #101820FF;
+  text-align: center;
+}
+
+.comment-card {
+  border-left: 5px solid #F2AA4CFF;
+}
+
+.comment-card .card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.comment-card .user-name {
+  font-size: 1.15em;
+  font-weight: 600;
+  color: #101820FF;
+}
+
+.comment-card .timestamp {
+  font-size: 0.85em;
+  color: #101820FF;
+}
+
+.star-readonly {
+  fill: #ccc; 
+  margin-right: 2px;
+}
+
+.star-readonly.filled {
+  fill: #ffc107; 
+}
+
+.star-readonly.empty {
+  fill: #ccc; 
+}
+
+
+
+.comment-card .comment-text {
+  font-size: 1em;
+  line-height: 1.6;
+  color: #101820FF;
+  white-space: pre-wrap; 
+}
+
+
+@media (max-width: 600px) {
+  .review-component-container {
+    margin: 10px;
+    padding: 15px;
+  }
+
+  .form-control {
+    font-size: 0.9rem;
+  }
+
+  .submit-btn {
+    font-size: 0.9rem;
+    padding: 9px 15px;
+  }
+
+  .comment-card .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .comment-card .timestamp {
+    margin-top: 5px;
+  }
+}

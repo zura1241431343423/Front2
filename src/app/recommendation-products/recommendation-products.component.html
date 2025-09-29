@@ -1,0 +1,60 @@
+<div class="newly-added-container">
+  <div class="header">
+    <h2 class="title">
+      <svg class="title-icon"
+           xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+      Recommended For You
+    </h2>
+    <div class="navigation-controls">
+      <button
+        class="nav-btn prev-btn"
+        (click)="scrollLeft()"
+        [disabled]="!canScrollLeft"
+        [class.disabled]="!canScrollLeft"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+        </svg>
+      </button>
+      <button
+        class="nav-btn next-btn"
+        (click)="scrollRight()"
+        [disabled]="!canScrollRight"
+        [class.disabled]="!canScrollRight"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="products-wrapper">
+    <div
+      #scrollContainer
+      class="products-scroll-container"
+      (scroll)="onScroll()"
+    >
+      <div class="products-grid">
+        @if (isLoading) {
+        <div class="loading-container">
+          <div class="loading-spinner"></div>
+          <p>Loading recommendations...</p>
+        </div>
+        } @else if (recommendedProducts.length === 0) {
+        <div class="empty-state">
+          <p>No recommendations available</p>
+        </div>
+        } @else { @for (product of recommendedProducts; track product.id) {
+        <div class="product-card-wrapper">
+          <app-card
+            [product]="product"
+            (ratingChanged)="onRatingChanged($event)"
+          >
+          </app-card>
+        </div>
+        } }
+      </div>
+    </div>
+  </div>
+</div>

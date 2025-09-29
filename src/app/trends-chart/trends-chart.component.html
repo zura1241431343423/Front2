@@ -1,0 +1,49 @@
+<div class="trends-container">
+  <div class="header">
+    <h2 class="title">Top Countries by Orders</h2>
+    <p class="subtitle">Rankings based on total order count</p>
+  </div>
+
+  <div class="loading-spinner" *ngIf="isLoading">
+    <div class="spinner"></div>
+    <p>Loading country data...</p>
+  </div>
+
+  <div class="error-message" *ngIf="error">
+    <p>{{ error }}</p>
+    <button class="retry-btn" (click)="loadTopCountries()">Retry</button>
+  </div>
+
+  <div class="countries-list" *ngIf="!isLoading && !error">
+    <div 
+      class="country-item" 
+      *ngFor="let country of topCountries; let i = index"
+      [class]="getRankClass(i)"
+    >
+      <div class="rank-section">
+        <span class="rank-badge">{{ getRankIcon(i) }}</span>
+      </div>
+      
+      <div class="country-info">
+        <h3 class="country-name">{{ country.country }}</h3>
+        <div class="order-stats">
+          <span class="order-count">{{ country.orderCount }}</span>
+          <span class="order-label">orders</span>
+        </div>
+      </div>
+
+      <div class="progress-section">
+        <div class="progress-bar">
+          <div 
+            class="progress-fill" 
+            [style.width.%]="(country.orderCount / topCountries[0].orderCount) * 100"
+          ></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="empty-state" *ngIf="!isLoading && !error && topCountries.length === 0">
+    <p>No country data available</p>
+  </div>
+</div>

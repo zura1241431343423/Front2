@@ -1,0 +1,158 @@
+
+.payment-container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 24px;
+  background: #101820FF;
+  border-radius: 12px;
+
+}
+
+.payment-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.payment-header h2 {
+  color: #F2AA4CFF;
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.payment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group-half {
+  flex: 1;
+}
+
+.form-row {
+  display: flex;
+  gap: 16px;
+}
+
+.form-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #F2AA4CFF;
+  margin-bottom: 4px;
+}
+
+.form-input {
+  padding: 12px 16px;
+  border: 2px solid #d1d5db;
+  border-radius: 8px;
+  height: 41px;
+  font-size: 16px;
+  color: #101820FF;
+  background-color: #ffffff;
+  transition: all 0.2s ease-in-out;
+  outline: none;
+  width: 100%;
+}
+
+.card-input-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.card-icon {
+  position: absolute;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ 
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 4px;
+  padding: 2px;
+  min-width: 40px;
+  min-height: 24px;
+}
+ .card-icon img {
+   width: 32px !important;
+  height: 30px !important;
+ }
+.card-brand-icon {
+  width: 32px;
+  height: 30px;
+  object-fit: contain;
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+
+
+.form-input:focus {
+  border-color: #F2AA4CFF;
+  
+}
+
+.form-input:invalid {
+  border-color: #ef4444;
+}
+
+.form-input::placeholder {
+  color: #101820FF;
+  font-size: 14px;
+}
+
+
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+
+
+
+@media (max-width: 640px) {
+  .payment-container {
+    margin: 16px;
+    padding: 20px;
+  }
+  
+  .form-row {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .form-group-half {
+    flex: none;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+  }
+  
+  .btn-primary,
+  .btn-secondary {
+    flex: none;
+  }
+}
+
+
+.form-input[type="text"]#cvv {
+  font-family: monospace;
+  letter-spacing: 2px;
+}
+
+.form-input[type="text"]#cardNumber {
+  font-family: monospace;
+  letter-spacing: 1px;
+}
+
+
+

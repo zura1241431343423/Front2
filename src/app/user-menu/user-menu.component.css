@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+
+.user-card {
+  
+  display: flex;
+  align-items: center;
+  padding: 24px;
+  max-width: 380px;
+  margin-bottom: 15px;
+  background: #101820FF;
+  border-radius: 16px;
+  border: 1px solid #F2AA4CFF;
+  box-shadow: 10px 10px 15px 3px #F2AA4CFF, 0 4px 6px -2px #F2AA4CFF;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden; 
+}
+
+
+.user-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 10px 20px 25px 5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+
+.user-avatar-container {
+  flex-shrink: 0; 
+  
+}
+
+.user-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%; 
+  object-fit: cover; 
+  margin-right: 20px;
+  border: 3px solid #F2AA4CFF;
+}
+
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.user-name {
+  font-size: 1.25rem; 
+  font-weight: 600;
+  color: #F2AA4CFF;
+  margin: 0;
+}
+
+
+.user-email {
+  font-size: 0.875rem; 
+  color: #F2AA4CFF;
+  margin: 4px 0 0 0;
+}

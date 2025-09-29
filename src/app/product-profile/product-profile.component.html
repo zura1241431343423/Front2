@@ -1,0 +1,104 @@
+<div class="product-container" *ngIf="product">
+  <div class="product-content">
+    
+    <div class="image-section">
+      <div class="carousel-container">
+        <div class="carousel-images" id="carouselImages">
+          <img *ngFor="let img of product.images; let i = index" 
+               [src]="img" 
+               [alt]="product.name" 
+               class="carousel-image" 
+               [class.active]="i === currentImageIndex">
+        </div>
+        <button class="carousel-arrow arrow-left" (click)="prevImage()">‹</button>
+        <button class="carousel-arrow arrow-right" (click)="nextImage()">›</button>
+      </div>
+      <div class="carousel-dots">
+        <span *ngFor="let img of product.images; let i = index" 
+              [class.active]="i === currentImageIndex" 
+              (click)="setCurrentImage(i)" 
+              class="dot" 
+              [attr.data-slide]="i"></span>
+      </div>
+    </div>
+  
+    
+    <div class="details-section">
+   
+      <h1 class="product-title">{{ product.name }}</h1>
+
+      <div class="rating" (mouseleave)="onStarLeave()" (click)="$event.stopPropagation()">
+        <ng-container *ngFor="let star of stars; let i = index">
+          <svg viewBox="0 0 24 24"
+               width="18"
+               height="18"
+               (click)="setRating(i + 1)"
+               (mouseenter)="onStarHover(i + 1)"
+               [class.filled]="isStarActive(i)">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+          </svg>
+        </ng-container>
+        <span class="rating-value">{{ displayRating | number:'1.1-1' }}</span>
+        <span class="rating-count">({{ ratingCount }})</span>
+        <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+      </div>
+
+   
+      <div class="price-section">
+        <div *ngIf="hasDiscount()" class="discount-container">
+          <div class="discount-badge">
+            -{{ getDiscountPercentage() }}%
+          </div>
+          <div class="original-price">{{ getFormattedOriginalPrice() }}</div>
+          <div class="discounted-price">{{ getFormattedDiscountedPrice() }}</div>
+        </div>
+        <div *ngIf="!hasDiscount()" class="regular-price">
+          {{ getFormattedPrice() }}
+        </div>
+      </div>
+
+   
+      <button class="add-to-cart-btn" id="addToCartBtn" (click)="onAddToBasketClick($event)">
+        Add to Cart
+      </button>
+    </div>
+  </div>
+  
+
+
+  <div class="info-container">
+    <div class="info-specs">
+      <div class="spec-line">
+        <span class="spec-label">Quantity Available:</span>
+        <span class="spec-value">{{ product.quantity }}</span>
+      </div>
+      <div class="spec-line">
+        <span class="spec-label">Warranty:</span>
+        <span class="spec-value">
+          {{ product.warranty === '1' ? 'Yes' : 'No' }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+<div class="reviews-list">
+  <ng-container *ngIf="product && product.id !== undefined && product.id !== null">
+    <app-user-review [productId]="product.id"></app-user-review>
+  </ng-container>
+
+  <div *ngIf="!product || product.id === undefined || product.id === null">
+    <p>Loading reviews...</p>
+    </div>
+</div>
+
+
+<div class="loading-container" *ngIf="!product">
+  <div class="loading-spinner">
+    <div class="spinner"></div>
+    <p>Loading product details...</p>
+  </div>
+</div>

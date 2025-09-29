@@ -1,0 +1,153 @@
+
+.filter-top-container {
+  display: flex;
+  gap: 20px;
+  background-color: #101820FF;
+  padding: 10px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  width: 1000px;           
+      
+  max-width: none;       
+  align-items: center;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 180px;      
+  flex: 1;
+}
+
+.filter-group label {
+  font-size: 14px;
+  color: #F2AA4CFF;
+  font-weight: 500;
+  white-space: nowrap;
+  min-width: fit-content; 
+}
+
+.filter-select {
+  width: 100%;
+  min-width: 120px;       
+  height: 32px;
+  padding: 0 12px;
+  background-color: #EEEEEE;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #F2AA4CFF;
+  cursor: pointer;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 14px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.filter-select:hover {
+  border-color: #F2AA4CFF;
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: #F2AA4CFF;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.15);
+}
+
+
+.filter-top {
+  margin-bottom: 20px;
+  margin-left: 0;          
+  display: flex;
+  width: 100%;             
+  min-height: 60px;        
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end; 
+}
+
+
+.filter-top.centered {
+  justify-content: center;
+}
+
+
+.filter-top.left-aligned {
+  justify-content: flex-start;
+}
+
+
+.main-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.side-filter {
+  flex: 0 0 250px;
+  margin-top: 100px;
+}
+
+.products-section {
+  flex: 1;
+  min-width: 0; 
+}
+
+
+
+.filter-clear-btn {
+      padding: 0.5rem 1rem;
+      background-color: #F2AA4CFF;
+      color: #101820FF;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 500;
+      margin-left:85px;
+      transition: background-color 0.2s;
+      white-space: nowrap;
+    }
+
+    .filter-clear-btn:hover:not(:disabled) {
+      background-color: rgb(233, 147, 35);
+    }
+
+   @media (max-width: 1000px) {
+ 
+  .filter-top-container {
+    display: none;
+  }
+
+ 
+  .filter-group {
+    flex: 1 1 100%;
+    min-width: unset;
+    gap: 8px;
+  }
+
+  
+  .filter-select {
+    width: 100%;
+    min-width: unset;
+  }
+
+
+  .filter-clear-btn {
+    margin-left: 0;
+    width: 100%;
+    text-align: center;
+  }
+} 
+
+
+

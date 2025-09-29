@@ -1,0 +1,9 @@
+<div class="favorite-card" (click)="goToProductProfile()">
+  <img [src]="product.images[0]" alt="{{ product.name }}" />
+  <div class="details">
+    <h4>{{ product.name }}</h4>
+    <p>${{ product.price }}</p>
+    <button (click)="onRemove(); $event.stopPropagation()">Remove</button>
+  </div>
+</div>
+

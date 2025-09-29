@@ -1,0 +1,70 @@
+<div class="top-rated-container">
+  <div class="header">
+    <h2 class="title">
+      <svg class="title-icon"
+      
+      xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M9.075 16.25L12 14.475l2.925 1.775l-.775-3.325l2.6-2.25l-3.425-.275L12 7.25l-1.325 3.15l-3.425.275l2.6 2.25zM12 23.3L8.65 20H4v-4.65L.7 12L4 8.65V4h4.65L12 .7L15.35 4H20v4.65L23.3 12L20 15.35V20h-4.65zm0-2.8l2.5-2.5H18v-3.5l2.5-2.5L18 9.5V6h-3.5L12 3.5L9.5 6H6v3.5L3.5 12L6 14.5V18h3.5zm0-8.5"/></svg>
+      Top Rated Products
+    </h2>
+    <div class="navigation-controls">
+      <button
+        class="nav-btn prev-btn"
+        (click)="scrollLeft()"
+        [disabled]="!canScrollLeft"
+        [class.disabled]="!canScrollLeft"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+        </svg>
+      </button>
+      <button
+        class="nav-btn next-btn"
+        (click)="scrollRight()"
+        [disabled]="!canScrollRight"
+        [class.disabled]="!canScrollRight"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+        </svg>
+      </button>
+      
+    </div>
+  </div>
+
+  <div class="products-wrapper">
+    <div
+      #scrollContainer
+      class="products-scroll-container"
+      (scroll)="onScroll()"
+    >
+      <div class="products-grid">
+        @if (isLoading) {
+        <div class="loading-container">
+          <div class="loading-spinner"></div>
+          <p>Loading top rated products...</p>
+        </div>
+        } @else if (error) {
+        <div class="error-state">
+          <p>{{ error }}</p>
+          <button (click)="refresh()" class="retry-btn">Try Again</button>
+        </div>
+        } @else if (topRatedProducts.length === 0) {
+        <div class="empty-state">
+          <p>No top rated products found</p>
+          <p class="empty-subtext">Try adjusting the rating criteria</p>
+        </div>
+        } @else { 
+        @for (product of topRatedProducts; track product.id) {
+        <div class="product-card-wrapper">
+          <app-card
+            [product]="product"
+            (ratingChanged)="onRatingChanged($event)"
+          >
+          </app-card>
+          
+        </div>
+        } }
+      </div>
+    </div>
+  </div>
+</div>

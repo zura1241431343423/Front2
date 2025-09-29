@@ -1,0 +1,78 @@
+<div class="discount-carousel-wrapper">
+  
+  
+  <div class="carousel-container" *ngIf="products.length > 0">
+    <div 
+  class="slide" 
+  [style.backgroundImage]="getCurrentSlideUrl()" 
+  (click)="goToProductProfile(getCurrentProduct()?.id!)" 
+  style="cursor: pointer;">
+      
+      <div class="product-info-overlay" *ngIf="getCurrentProduct() as product">
+        
+        <div class="product-name-badge">
+          <h3>{{ product.name }}</h3>
+          <p class="product-brand">{{ product.brand }}</p>
+        </div>
+        
+       <div class="price-info">
+ 
+  <div class="discount-badge">
+    {{ getDiscountPercentage(product) }}% OFF
+  </div>
+
+  
+  <div class="price-display">
+    <span class="original-price">{{ getFormattedOriginalPrice(product) }}</span>
+    <span class="discounted-price">{{ getFormattedDiscountedPrice(product) }}</span>
+  </div>
+
+
+  <div class="savings-amount">
+    You save: {{ getSavingsAmount(product) }}
+  </div>
+</div>
+      </div>
+    </div>
+
+
+    <button 
+      class="carousel-arrow prev-arrow" 
+      (click)="goToPrevious()" 
+      aria-label="Previous slide"
+      [disabled]="products.length <= 1">
+      &#10094;
+    </button>
+
+    <button 
+      class="carousel-arrow next-arrow" 
+      (click)="goToNext()" 
+      aria-label="Next slide"
+      [disabled]="products.length <= 1">
+      &#10095;
+    </button>
+
+
+    <div class="carousel-dots" *ngIf="products.length > 1">
+      <span
+        *ngFor="let product of products; let i = index"
+        class="dot"
+        [class.active]="i === currentIndex"
+        (click)="goToSlide(i)"
+        [attr.aria-label]="'Go to slide ' + (i + 1) + ' - ' + product.name">
+      </span>
+    </div>
+
+ 
+    <div class="slide-counter" *ngIf="products.length > 1">
+      {{ currentIndex + 1 }} / {{ products.length }}
+    </div>
+  </div>
+
+
+  <div *ngIf="products.length === 0" class="no-products-message">
+    <div class="no-products-icon">🛍️</div>
+    <h3>No Discounted Products Available</h3>
+    <p>Check back later for amazing deals and special offers!</p>
+  </div>
+</div>

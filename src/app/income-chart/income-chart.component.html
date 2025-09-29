@@ -1,0 +1,87 @@
+<div class="income-chart-container">
+ 
+  <div class="chart-header">
+    <div class="header-content">
+      <div class="header-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="1" x2="12" y2="23"></line>
+          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+        </svg>
+      </div>
+      <h2 class="chart-title">Income Overview</h2>
+    </div>
+  </div>
+
+
+  <div *ngIf="loading" class="loading-container">
+    <div class="loading-spinner"></div>
+    <p class="loading-text">Loading income data...</p>
+  </div>
+
+ 
+  <div *ngIf="error && !loading" class="error-container">
+    <div class="error-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="15" y1="9" x2="9" y2="15"></line>
+        <line x1="9" y1="9" x2="15" y2="15"></line>
+      </svg>
+    </div>
+    <p class="error-text">{{ error }}</p>
+    <button class="retry-button" (click)="loadIncomeData()">Try Again</button>
+  </div>
+
+
+  <div *ngIf="!loading && !error" class="chart-content">
+   
+    <div class="stats-grid">
+      <div class="stat-card total-income">
+        <div class="stat-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="1" x2="12" y2="23"></line>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+          </svg>
+        </div>
+        <div class="stat-content">
+          <p class="stat-label">Total Income</p>
+          <p class="stat-value">{{ formatCurrency(totalIncome) }}</p>
+        </div>
+      </div>
+
+      <div class="stat-card growth-card" [class.positive]="isGrowthPositive" [class.negative]="!isGrowthPositive">
+        <div class="stat-icon">
+          <svg *ngIf="isGrowthPositive" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+            <polyline points="17 6 23 6 23 12"></polyline>
+          </svg>
+          <svg *ngIf="!isGrowthPositive" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline>
+            <polyline points="17 18 23 18 23 12"></polyline>
+          </svg>
+        </div>
+        <div class="stat-content">
+          <p class="stat-label">Growth Rate</p>
+          <p class="stat-value">
+            <span [class.positive]="isGrowthPositive" [class.negative]="!isGrowthPositive">
+               {{ averageDailyGrowth >= 0 ? '+' : '' }}{{ averageDailyGrowth.toFixed(2) }}%
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+ 
+    <div class="chart-wrapper">
+      <div class="chart-canvas-container">
+        <canvas #chartCanvas></canvas>
+      </div>
+    </div>
+
+
+    <div class="chart-description">
+      <p class="description-text">
+        Income trend over the last 30 days. Growth percentage is calculated by comparing the last 15 days to the previous 15 days.
+      </p>
+    </div>
+  </div>
+</div>

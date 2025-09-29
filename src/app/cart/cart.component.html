@@ -1,0 +1,83 @@
+<div class="cart-page-wrapper">
+  <div class="cart-page-container">
+  
+
+      <div *ngIf="cartItems.length === 0">
+        <p>Your cart is empty.</p>
+      </div>
+    <div class="product-container">
+      
+
+      <div *ngFor="let item of cartItems" class="product-card">
+        <div class="product-image">
+          <img [src]="item.image" [alt]="item.name">
+        </div>
+        <div class="product-details">
+          <div class="product-info">
+            <h3 class="product-name">{{ item.name }}</h3>
+            <p class="product-price">{{ getFormattedPrice(item.price) }}</p>
+          </div>
+          <div class="product-actions">
+            <button class="delete-button" (click)="removeItem(item.id)" aria-label="Delete item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path fill="currentColor"
+                  d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zM17 6H7v13h10zM9 17h2V8H9zm4 0h2V8h-2zM7 6v13z" />
+              </svg>
+            </button>
+            <div class="quantity-selector">
+              <button class="quantity-button minus" (click)="decreaseQuantity(item.id)">-</button>
+              <span class="quantity-input">{{ item.quantity }}</span>
+              <button class="quantity-button plus" (click)="increaseQuantity(item.id)">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-container">
+      <form id="userInfoForm">
+        <div class="form-group">
+          <label for="userName">Name:</label>
+          <input type="text" id="userName" name="userName" required />
+        </div>
+
+        <div class="form-group">
+          <label for="userLastName">Last Name:</label>
+          <input type="text" id="userLastName" name="userLastName" required />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="useremail" required />
+        </div>
+
+        <div class="form-group">
+          <label for="deliveryType">Delivery Type:</label>
+          <select id="deliveryType" name="deliveryType" (change)="onDeliveryTypeChange($event)">
+            <option value="standard">Standard (7 days): Free</option>
+            <option value="flash">Flash (Get it Tomorrow): +{{ getFormattedPrice(5.99) }}</option>
+            <option value="nominated">Nominated Day: +{{ getFormattedPrice(7.99) }}</option>
+          </select>
+          <input type="date" id="nominatedDayCalendar" style="display: none;" />
+        </div>
+
+        <div class="form-group">
+          <label for="userLocation">Location:</label>
+          <input type="text" id="userLocation" name="userLocation" placeholder="Country, City, Street" />
+        </div>
+      </form>
+
+      <div class="map-container-wrapper">
+        <label>Select Location on Map:</label>
+        <div id="mapContainer" class="map-container" style="height: 300px;"></div>
+      </div>
+
+      <div class="order-summary">
+        <p>Delivery: {{ getFormattedPrice(getDeliveryPrice()) }}</p>
+        <p><strong>Total Price: {{ getFormattedPrice(getTotalPrice()) }}</strong></p>
+        <app-payment></app-payment>
+        <button class="order-now-button" (click)="submitOrder()">Order Now</button>
+      </div>
+    </div>
+  </div>
+</div>

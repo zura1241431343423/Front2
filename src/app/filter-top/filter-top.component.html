@@ -1,0 +1,43 @@
+ <div class="filter-top-container">
+  <div class="filter-group">
+    <label for="sort-by">Sort By</label>
+    <select 
+      id="sort-by"
+      class="filter-select"
+      [(ngModel)]="filterOptions.sortBy"
+      (change)="onFilterChange()">
+      <option *ngFor="let option of sortOptions" [value]="option.value">
+        {{ option.label }}
+      </option>
+    </select>
+  </div>
+
+
+
+  <div class="filter-group">
+    <label for="subcategory">Category</label>
+    <select 
+      id="subcategory"
+      class="filter-select"
+      [(ngModel)]="filterOptions.subCategory"
+      (change)="onFilterChange()"
+      [disabled]="availableSubCategories.length === 0">
+      <option value="all">All </option>
+      <option *ngFor="let subCategory of availableSubCategories" [value]="subCategory">
+        {{ subCategory | titlecase }}
+      </option>
+    </select>
+  </div>
+
+ 
+
+  <div class="filter-group">
+    <button 
+      type="button"
+      class="filter-clear-btn"
+      (click)="clearFilters()"
+      [disabled]="!hasActiveFilters()">
+      Clear Filters
+    </button>
+  </div>
+</div>

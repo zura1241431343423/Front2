@@ -1,0 +1,145 @@
+
+<div class="main-content">
+ 
+  <div class="mobile-filter-controls">
+    <button 
+      class="mobile-filter-btn" 
+      (click)="toggleMobileFilter()"
+      [class.active]="showMobileFilter">
+      
+      Filter
+      <span class="filter-count" *ngIf="getActiveFiltersCount() > 0">
+        ({{ getActiveFiltersCount() }})
+      </span>
+    </button>
+  </div>
+
+  
+  <div class="mobile-filter-overlay" 
+       [class.show]="showMobileFilter" 
+       (click)="closeMobileFilter()">
+  </div>
+
+  
+  <div class="side-filter" [class.mobile-active]="showMobileFilter">
+    
+    <div class="mobile-filter-header">
+      <h2>Filters</h2>
+      <button class="close-filter-btn" (click)="closeMobileFilter()">
+        <span class="close-icon">✕</span>
+      </button>
+    </div>
+
+    <app-filter
+      [products]="currentProducts"
+      [currentCategory]="currentCategory"              
+      [resetFiltersOnProductsChange]="true"              
+      (filtersChanged)="onFiltersChanged($event)">          
+    </app-filter>
+
+   
+    <div class="mobile-filter-actions">
+      <button class="clear-filters-btn" (click)="clearAllFilters()">
+        Clear All
+      </button>
+      <button class="apply-filters-btn" (click)="applyMobileFilters()">
+        Apply Filters
+      </button>
+    </div>
+  </div>
+
+  <div class="products-section">
+    <div class="filter-top">
+      <app-filter-top
+        [products]="products"
+        [filteredCount]="getFilteredProductsCount()"
+        [totalCount]="getTotalProductsCount()"
+        [categoryName]="'Appliances'"
+        [initialSubcategory]="initialSubcategory"
+        [showPriceFilters]="true"
+        [showRatingFilter]="true"
+        [showResultsCount]="true"
+        (filterChange)="onTopFilterChange($event)"
+        (sortedProducts)="onSortedProducts($event)">
+      </app-filter-top>
+    </div>
+
+    @if (isLoading) {
+      <div class="loading-spinner">
+        Loading products...
+      </div>
+    } @else if (error) {
+      <div class="error-message">
+        {{ error }}
+      </div>
+    } @else if (filteredProducts.length === 0) {
+      <div class="no-products">
+        No IT equipment products found in this range.
+      </div>
+    } @else {
+      <div class="pagination-info">
+        <p>{{ getPaginationInfo() }}</p>
+      </div>
+
+      <div class="products-grid"
+           [class.products-exit]="!showProducts"
+           [class.products-enter]="showProducts">
+        @for (product of paginatedProducts; track product.id) {
+          <app-card
+            [product]="product"                          
+            (ratingChanged)="handleRatingChange($event)">
+          </app-card>
+        }
+      </div>
+
+      @if (totalPages > 1) {
+        <div class="pagination-container">
+          <div class="pagination">
+            <button
+              class="pagination-btn first-last-btn"
+              [disabled]="!canGoPrevious()"               
+              (click)="goToFirstPage()"               
+              title="First Page">
+              ««
+            </button>
+
+            <button
+              class="pagination-btn prev-next-btn"
+              [disabled]="!canGoPrevious()"               
+              (click)="goToPreviousPage()"               
+              title="Previous Page">
+              ‹
+            </button>
+
+            @for (pageNum of visiblePages; track pageNum) {
+              <button
+                class="pagination-btn page-btn"
+                [class.active]="pageNum === currentPage"
+                [disabled]="isAnimating"
+                (click)="goToPage(pageNum)"
+                title="Go to page {{ pageNum }}">
+                {{ pageNum }}
+              </button>
+            }
+
+            <button
+              class="pagination-btn prev-next-btn"
+              [disabled]="!canGoNext()"               
+              (click)="goToNextPage()"               
+              title="Next Page">
+              ›
+            </button>
+
+            <button
+              class="pagination-btn first-last-btn"
+              [disabled]="!canGoNext()"               
+              (click)="goToLastPage()"               
+              title="Last Page">
+              »»
+            </button>
+          </div>
+        </div>
+      }
+    }
+  </div>
+</div>

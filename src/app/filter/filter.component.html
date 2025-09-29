@@ -1,0 +1,91 @@
+<div class="filter-container">
+  <h2>Filters</h2>
+  
+ 
+  <div class="filter-section">
+    <h3>Price ({{ getCurrencySymbol() }})</h3>
+    <div class="price-inputs">
+      <div class="price-input">
+        <label for="min-price">Min {{ getCurrencySymbol() }}</label>
+        <input 
+          id="min-price" 
+          type="number" 
+          [(ngModel)]="minPrice" 
+          (input)="onPriceChange()" 
+          
+          min="0"
+          step="0.01"
+        />
+      </div>
+      <div class="price-input">
+        <label for="max-price">Max {{ getCurrencySymbol() }}</label>
+        <input 
+          id="max-price" 
+          type="number" 
+          [(ngModel)]="maxPrice" 
+          (input)="onPriceChange()" 
+          
+          min="0"
+          step="0.01"
+        />
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="filter-section">
+    <h3>Brand</h3>
+    <div class="brand-section">
+     
+      <div class="brand-controls" *ngIf="availableBrands.length > 0">
+        <button 
+          type="button" 
+          class="control-btn select-all-btn"
+          (click)="selectAllBrands()"
+          [disabled]="selectedBrands.size === availableBrands.length"
+        >
+          Select All
+        </button>
+        <button 
+          type="button" 
+          class="control-btn clear-all-btn"
+          (click)="clearAllBrands()"
+          [disabled]="selectedBrands.size === 0"
+        >
+          Clear All
+        </button>
+      </div>
+
+      
+      <div class="brand-checkboxes">
+        <div 
+          class="brand-checkbox-item"
+          *ngFor="let brand of availableBrands; trackBy: trackByBrand"
+        >
+          <label class="checkbox-label">
+            <input 
+              type="checkbox"
+              [id]="'brand-' + brand"
+              [checked]="isBrandSelected(brand)"
+              #cb
+              (change)="onBrandChange(brand, cb.checked)"
+              class="brand-checkbox"
+            />
+            
+            <span class="brand-name">{{ brand }}</span>
+          </label>
+        </div>
+        
+       
+        <div class="no-brands-message" *ngIf="availableBrands.length === 0">
+          <p>No brands available</p>
+        </div>
+      </div>
+
+     
+      <div class="selected-count" *ngIf="availableBrands.length > 0">
+        <small>{{ selectedBrands.size }} of {{ availableBrands.length }} brands selected</small>
+      </div>
+    </div>
+  </div>
+</div>

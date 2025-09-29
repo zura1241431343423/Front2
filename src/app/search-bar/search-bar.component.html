@@ -1,0 +1,82 @@
+<div class="search-bar-container">
+  <div class="search-input-wrapper">
+    <div class="search-input-group" [class.focused]="isSearchFocused">
+      <input 
+        type="text"
+        class="search-input"
+        placeholder="Search products..."
+        [value]="searchQuery"
+        (input)="onSearchInput($event)"
+        (focus)="onSearchFocus()"
+        (blur)="onSearchBlur()"
+        (keydown)="onKeydown($event)"
+        autocomplete="off">
+        
+      <button 
+        class="search-button"
+        (click)="onSearchButtonClick()"
+        [disabled]="!searchQuery.trim()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.35-4.35"></path>
+        </svg>
+      </button>
+    </div>
+
+  
+    <div class="search-results loading" *ngIf="isLoading && searchQuery">
+      <div class="loading-message">
+        <div class="spinner"></div>
+        <p>Searching...</p>
+      </div>
+    </div>
+
+   
+    <div class="search-results" *ngIf="showResults && filteredProducts.length > 0 && !isLoading">
+      <div class="search-results-header">
+        <span>Search Results ({{ filteredProducts.length }})</span>
+      </div>
+      
+      <div class="search-results-list">
+        <div 
+          *ngFor="let product of filteredProducts"
+          class="search-result-item"
+          (click)="onProductClick(product)">
+          
+          <div class="product-image-wrapper">
+            <img 
+              [src]="getProductImage(product)"
+              [alt]="getProductName(product)"
+              class="product-image"
+              onerror="this.src='/assets/placeholder-image.png'">
+          </div>
+          
+        <div class="product-info">
+  <h4 class="product-name">{{ getProductName(product) }}</h4>
+  <div class="product-price">{{ formatPrice(product.price) }}</div>
+  <div class="product-category" *ngIf="product.category">{{ product.category }}</div>
+</div>
+
+          
+          <div class="product-arrow">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,18 15,12 9,6"></polyline>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="search-results no-results" *ngIf="showResults && filteredProducts.length === 0 && searchQuery && !isLoading">
+      <div class="no-results-message">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.35-4.35"></path>
+        </svg>
+        <p>No products found for "{{ searchQuery }}"</p>
+        <small>Try searching with different keywords</small>
+      </div>
+    </div>
+  </div>
+</div>

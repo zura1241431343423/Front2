@@ -1,0 +1,98 @@
+<div class="review-component-container">
+  <h3>Product Reviews</h3>
+  
+  
+  <div *ngIf="isLoading" class="loading-indicator">
+    <p>Loading reviews...</p>
+  </div>
+
+ 
+  <div *ngIf="errorMessage" class="error-message alert alert-danger">
+    <p>{{ errorMessage }}</p>
+    <button (click)="fetchReviews()" class="retry-btn">Retry</button>
+  </div>
+  
+  <ng-container *ngIf="productId && !isLoading">
+   
+    <div *ngIf="isLoggedIn() && currentUser" class="review-input-section card">
+      <h4>Leave a Review for this Product</h4>
+      <p class="font-semibold">{{ currentUser.name }} {{ currentUser.lastName }}</p>
+      
+      <form (ngSubmit)="postReview()" #reviewForm="ngForm">
+        
+        
+        <div class="form-group">
+          <label for="comment">Your Comment:</label>
+          <textarea id="comment" name="comment" class="form-control" rows="4"
+                    [(ngModel)]="newCommentText" required
+                    #commentInput="ngModel"></textarea>
+          <div *ngIf="commentInput.invalid && (commentInput.dirty || commentInput.touched)" class="validation-error">
+            <small *ngIf="commentInput.errors?.['required']">Comment cannot be empty.</small>
+          </div>
+        </div>
+        <button type="submit" class="submit-btn" [disabled]="reviewForm.invalid || isLoading">
+          {{ isLoading ? 'Posting...' : 'Post Comment' }}
+        </button>
+      </form>
+    </div>
+    
+   
+    <div *ngIf="!isLoggedIn()" class="login-prompt card">
+      <p>Please <a routerLink="/login">log in</a> to leave a review for this product.</p>
+    </div>
+  </ng-container>
+  
+ 
+  <div *ngIf="!productId" class="no-product-prompt card">
+    <p>Please select a product to see or add reviews.</p>
+  </div>
+  
+
+  <hr class="separator" *ngIf="productId && productSpecificReviews.length > 0 && !isLoading">
+  
+  
+  <div class="comment-section" *ngIf="productId && !isLoading">
+    <h4 *ngIf="productSpecificReviews.length > 0" class="comments-title">
+      Comments ({{ productSpecificReviews.length }})
+    </h4>
+    
+    <div *ngIf="productSpecificReviews.length === 0 && !errorMessage" class="no-reviews-message card-text">
+      <p *ngIf="isLoggedIn()">Be the first to review this product!</p>
+      <p *ngIf="!isLoggedIn()">No reviews for this product yet. <a routerLink="/login">Log in</a> to add one!</p>
+    </div>
+    
+    <div *ngFor="let review of productSpecificReviews" class="comment-card card">
+      <div class="card-header">
+        <strong class="user-name">{{ review.userName }}</strong>
+        <span class="timestamp">{{ review.timestamp | date:'M/d/yyyy' }}</span>
+      
+        <button *ngIf="currentUser && review.userId === currentUser.id" 
+                (click)="deleteReview(review.id!)" 
+                class="delete-btn"
+                title="Delete Review">
+          ×
+        </button>
+      </div>
+        <div class="card-body">
+  
+  <div class="readonly-rating" *ngIf="review.hasRated && review.userRating && review.userRating > 0">
+    <div class="star-display">
+      <svg *ngFor="let star of [1,2,3,4,5]; let i = index" 
+           viewBox="0 0 24 24"
+           width="16"
+           height="16"
+           [class.filled]="star <= review.userRating"
+           [class.empty]="star > review.userRating"
+           class="star-readonly">
+        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+      </svg>
+    </div>
+    <span class="rating-text">({{ review.userRating }}/5)</span>
+  </div>
+  
+  <p class="comment-text">{{ review.commentText }}</p>
+</div>
+
+    </div>
+  </div>
+</div>

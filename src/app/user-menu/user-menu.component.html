@@ -1,0 +1,14 @@
+<div *ngIf="loading">Loading users...</div>
+<div *ngIf="error" class="error">{{ error }}</div>
+
+<div *ngIf="users.length > 0" class="user-grid">
+  <div *ngFor="let user of users" class="user-card">
+    <div class="user-avatar-container">
+      <img class="user-avatar" src="https://placehold.co/100x100/A9B4C2/FFFFFF?text=User" alt="User Avatar">
+    </div>
+    <div class="user-info">
+      <h2 class="user-name">{{ user.name }} {{ user.lastName }}</h2>
+      <p class="user-email">{{ user.email }}</p>
+    </div>
+  </div>
+</div>

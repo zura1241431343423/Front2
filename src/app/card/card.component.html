@@ -1,0 +1,64 @@
+<div class="product-card" (click)="goToProductProfile($event)">
+  <div class="image-container">
+    @if(product.images && product.images[0]) {
+      <img [src]="mainImage" [alt]="product.name" class="product-image">
+    } @else {
+      <div class="img-fallback">No Image Available</div>
+    }
+    
+    
+    <div class="price-container">
+      @if(hasDiscount()) {
+        
+        <div class="discount-badge">
+          -{{ getDiscountPercentage() }}%
+        </div>
+        
+        <div class="original-price">{{ getFormattedOriginalPrice() }}</div>
+        
+        <div class="discounted-price">{{ getFormattedDiscountedPrice() }}</div>
+      } @else {
+        
+        <div class="regular-price">{{ getFormattedPrice() }}</div>
+      }
+    </div>
+  </div>
+ 
+  <label class="favorite" [class.favorited]="isFavorited" (click)="$event.stopPropagation()">
+    <input 
+        type="checkbox" 
+       [checked]="isFavorited"
+      (change)="onFavoriteClick($event)">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" [attr.fill]="isFavorited ? '#ff4757' : '#000000'">
+      <path d="M12 20a1 1 0 0 1-.437-.1C11.214 19.73 3 15.671 3 9a5 5 0 0 1 8.535-3.536l.465.465.465-.465A5 5 0 0 1 21 9c0 6.646-8.212 10.728-8.562 10.9A1 1 0 0 1 12 20z"></path>
+    </svg>
+  </label>
+ 
+  <div class="product-info">
+    <h3 class="product-name">{{ product.name }}</h3>
+    
+    <div class="rating" (mouseleave)="onStarLeave()" (click)="$event.stopPropagation()">
+      @for (star of stars; track $index; let i = $index) {
+        <svg viewBox="0 0 24 24"
+             width="18"
+             height="18"
+             (click)="setRating(i + 1); $event.stopPropagation()"
+             (mouseenter)="onStarHover(i + 1)"
+             (mouseleave)="onStarLeave()"
+             [class.filled]="isStarActive(i)">
+          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+        </svg>
+      }
+      <span class="rating-value">{{ displayRating | number:'1.1-1' }}</span>
+      <span class="rating-count">({{ ratingCount }})</span>
+    </div>
+  </div>
+ 
+  <div class="product-actions">
+    <button class="add-to-basket-btn" (click)="onAddToBasketClick($event); $event.stopPropagation()">
+      Add to Cart
+    </button>
+  </div>
+</div>
+
+

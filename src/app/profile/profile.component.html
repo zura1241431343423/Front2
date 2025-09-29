@@ -1,0 +1,126 @@
+<div class="profile-container">
+  <div class="sidebar">
+    <button
+      class="nav-button"
+      [class.active]="selectedTab === 'orders'"
+      (click)="selectTab('orders')">
+      My Orders
+    </button>
+    <button
+      class="nav-button"
+      [class.active]="selectedTab === 'profile'"
+      (click)="selectTab('profile')">
+      Profile Info
+    </button>
+    <button
+      class="nav-button"
+      [class.active]="selectedTab === 'saved'"
+      (click)="selectTab('saved')">
+      Saved Items
+    </button>
+
+    <button class="nav-button logout-button" (click)="logout()">
+      Logout
+    </button>
+  </div>
+
+  <div class="content-area">
+
+    <div *ngIf="selectedTab === 'profile'" class="panel">
+      <h2>Profile Information</h2>
+
+    
+      <div *ngIf="successMessage" class="success-message">
+        {{ successMessage }}
+      </div>
+
+      
+      <div *ngIf="errorMessage" class="error-message">
+        <pre>{{ errorMessage }}</pre>
+      </div>
+
+     
+      <div *ngIf="isLoading" class="loading-indicator">
+        <p>Loading...</p>
+      </div>
+
+     
+      <form *ngIf="user && !isLoading" (ngSubmit)="saveProfile()" #userForm="ngForm">
+        <div class="form-group">
+          <label for="firstName">First Name:</label>
+          <input
+            type="text"
+            id="firstName"
+            name="firstName"
+            class="form-control"
+            [(ngModel)]="user.name"
+            required
+            [disabled]="isLoading"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="lastName">Last Name:</label>
+          <input
+            type="text"
+            id="lastName"
+            name="lastName"
+            class="form-control"
+            [(ngModel)]="user.lastName"
+            required
+            [disabled]="isLoading"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="address">Address:</label>
+          <textarea
+            id="address"
+            name="address"
+            class="form-control"
+            rows="3"
+            [(ngModel)]="user.address"
+            [disabled]="isLoading"
+          ></textarea>
+        </div>
+
+        <button 
+          type="submit" 
+          class="save-button" 
+          [disabled]="isLoading || !userForm.valid">
+          {{ isLoading ? 'Saving...' : 'Save Changes' }}
+        </button>
+      </form>
+    </div>
+
+    
+    <div *ngIf="selectedTab === 'orders'" class="panel">
+  <h2>My Orders</h2>
+  <app-my-orders></app-my-orders> 
+</div>
+
+    
+   <div *ngIf="selectedTab === 'saved'" class="panel">
+  <h2>Saved Items</h2>
+
+  @if (savedItems.length > 0) {
+    <div class="saved-items-grid">
+      @for (item of savedItems; track item.id) {
+        <app-favorite-card 
+          [product]="item" 
+          (remove)="removeFromFavorites($event)">
+        </app-favorite-card>
+      }
+    </div>
+  } @else {
+    <div class="empty-state">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M12 20a1 1 0 0 1-.437-.1C11.214 19.73 3 15.671 3 9a5 5 0 0 1 8.535-3.536l.465.465.465-.465A5 5 0 0 1 21 9c0 6.646-8.212 10.728-8.562 10.9A1 1 0 0 1 12 20z"/>
+      </svg>
+      <h3>No saved items yet</h3>
+      <p>Items you favorite will appear here. Start shopping and save your favorite products!</p>
+    </div>
+  }
+</div>
+  </div>
+</div>
